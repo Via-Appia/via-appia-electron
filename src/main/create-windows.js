@@ -3,19 +3,16 @@ import fs from 'fs'
 import settings from './setting.json'
 
 async function createWindows (win, app) {
-  const displays = screen.getAllDisplays()
-  
   // try {
     
   // } catch (error) {
     
   // }
 
-  // getScreenSettings(app)
-
+  const screenSettings = getScreenSettings(app)
 
   const windows = settings.windows.map((windowSetting) => {
-    createWindow(windowSetting, displays)
+    createWindow(windowSetting, screenSettings)
   })
   
 
@@ -25,11 +22,23 @@ async function createWindows (win, app) {
 
 }
 
-function createWindow (windowSetting) {
+function createWindow (windowSetting, screenSettings) {
   const {id, urlSlug, hasDevtools, isVisible} = windowSetting;
+  const {windows, displaysConnected}  = screenSettings;
   let win = null;
   let devtools = null;
 
+  if(!isVisible) return null;
+
+  let displaySettings = displaysConnected.find((display) => display.id === windows[id].screenID)
+
+  // Nog wel iest doen als het display nog niet is ingesteld...
+
+  console.log('displaySettings', displaySettings)
+
+  let displayShiftX = displaySettings.bounds.x
+  let displayShiftY = displaySettings.bounds.y
+  let fullscreen = true
   
   win = new BrowserWindow({
     width: 800,
@@ -59,7 +68,10 @@ function createWindow (windowSetting) {
     // const PORT = 8080;
     // win.loadURL(`http://${HOST}:${PORT}/`);
     win.loadURL(`file://${__dirname}/index.html`);
-    devtools = new BrowserWindow()
+    devtools = new BrowserWindow({
+      x: 0,
+      y: 0
+    })
     win.webContents.setDevToolsWebContents(devtools.webContents)
     win.webContents.openDevTools({ mode: 'detach' });
   }
@@ -74,11 +86,18 @@ function createWindow (windowSetting) {
   return win
 }
 
-async function getScreenSettings (app) {
+function getScreenSettings (app) {
   const path = app.getPath('userData')
-  const data = fs.writeFileSync(`${path}/screensettings.json`)
-  // const displaySettings = JSON.parse(data)
-  // console.log(displaySettings)
+  const data = fs.readFileSync(`${path}/screensettings.json`) //testen als null is
+  const displaySettings = JSON.parse(data) //testen als null is
+
+  displaySettings.displaysConnected = screen.getAllDisplays()
+  storeConnectedScreens(app, displaySettings)
+  return displaySettings //wat te doen als er nog geen display-settigs zijn...
+}
+
+function storeConnectedScreens(app, displaySettings) {
+
 }
 
 
