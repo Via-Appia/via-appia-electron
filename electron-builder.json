@@ -1,0 +1,28 @@
+{
+  "appId": "com.electron.PackageManager",
+  "artifactName": "ProductBuilder ${productName} setup ${version} ${platform}.exe",
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": "x64"
+      }
+    ],
+    "icon": "build/assets/productbuilder-magenta.ico"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowElevation": false,
+    "allowToChangeInstallationDirectory": true,
+    "installerSidebar": "build/assets/installerSidebar.bmp",
+    "license": "build/assets/eula.txt"
+  },
+  "directories": {
+    "output": "dist"
+  },
+  "files": [
+    "build/",
+    "!**/*.map"
+  ]
+}

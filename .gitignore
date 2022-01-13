@@ -1,0 +1,9 @@
+node_modules
+dist/*
+build/*
+
+*code-workspace
+*.code-workspace
+
+!build/.gitkeep 
+!build/assets

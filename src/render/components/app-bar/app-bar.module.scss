@@ -1,0 +1,59 @@
+.app-bar {
+  -webkit-app-region: drag;
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 30px;
+  background-color: lightgray;
+  display: flex;
+  justify-content: space-between;
+  
+  
+  .logo {
+    width: 21px;
+    height: 21px;
+    margin-left: 5px;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .title {
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .controll {
+    display: flex;
+    -webkit-app-region: no-drag;
+    path {
+      stroke: #222;
+      
+    }
+    
+    .minimize {
+      &:hover {
+        background-color: #c7cace;
+      }
+    }
+
+    .resize {
+      &:hover {
+        background-color: #c7cace;
+      }
+    }
+
+    .close {
+      &:hover {
+        path {
+          stroke: white;
+        }
+        background-color: #d71526;
+      }
+    }
+  }
+
+}
+
+
