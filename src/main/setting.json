@@ -1,0 +1,17 @@
+{
+  "barvisibility": false,
+  "windows": [
+    {
+      "id": "window01",
+      "urlSlug": "app01",
+      "hasDevtools": false,
+      "isVisible": true
+    },
+    {
+      "id": "window02",
+      "urlSlug": "app02",
+      "hasDevtools": false,
+      "isVisible": true
+    }
+  ]
+}

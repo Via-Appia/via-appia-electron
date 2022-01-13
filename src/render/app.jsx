@@ -4,7 +4,6 @@ import Socket from './hooks/websocket';
 
 const App = () => {
   const websocket = useMemo(() => new Socket('testing-id'), [])
-
   const handleSend = useCallback((message) => {
     // websocket.send(message)
     websocket.startView(5)
