@@ -1,0 +1,104 @@
+{
+  "displays": {
+    "window02": {
+      "screenID": 1,
+      "displaynumber": 2
+    },
+    "window03": {
+      "screenID": 25281732444,
+      "displaynumber": 3
+    },
+    "window04": {
+      "screenID": 2779098405,
+      "displaynumber": 3
+    },
+    "window05": {
+      "screenID": 1133551107,
+      "displaynumber": 4
+    },
+    "window06": {
+      "screenID": 1,
+      "displaynumber": 5
+    }
+  },
+  "displaysConnected": [
+    {
+      "id": 2528732444,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1440
+      },
+      "workArea": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1410
+      },
+      "size": {
+        "width": 2560,
+        "height": 1440
+      },
+      "workAreaSize": {
+        "width": 2560,
+        "height": 1410
+      },
+      "scaleFactor": 1,
+      "rotation": 0,
+      "touchSupport": "unknown"
+    },
+    {
+      "id": 2779098405,
+      "bounds": {
+        "x": 2560,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "workArea": {
+        "x": 2560,
+        "y": 0,
+        "width": 1920,
+        "height": 1050
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "workAreaSize": {
+        "width": 1920,
+        "height": 1050
+      },
+      "scaleFactor": 1,
+      "rotation": 0,
+      "touchSupport": "unknown"
+    },
+    {
+      "id": 1133551107,
+      "bounds": {
+        "x": 4480,
+        "y": 0,
+        "width": 800,
+        "height": 600
+      },
+      "workArea": {
+        "x": 4480,
+        "y": 0,
+        "width": 800,
+        "height": 570
+      },
+      "size": {
+        "width": 800,
+        "height": 600
+      },
+      "workAreaSize": {
+        "width": 800,
+        "height": 570
+      },
+      "scaleFactor": 1,
+      "rotation": 0,
+      "touchSupport": "unknown"
+    }
+  ]
+}
