@@ -1,0 +1,415 @@
+.app {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  display: grid;
+  grid-template-columns: [left-page] 40px [left-margin] 1fr [right-margin] 40px [right-page];
+  grid-template-rows: [top-page] 85px [base-header] 1fr [top-buttons] auto [bottom-margin] 50px [bottom-page];
+
+  @include desktop {
+    width: 800px;
+    min-width: 800px;
+    height: 1280px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 5px 5px 16px 10px rgba(0, 0, 0, 0.575);
+  }
+  
+}
+
+._header {
+  position: relative;
+  grid-column: left-page / right-page;
+  grid-row: top-page / base-header;
+
+  box-shadow: 0px 0px 16px 2px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px 0 40px;
+
+  .title {
+    font-size: 38px;
+    white-space: nowrap;
+    color: var(--color);
+    width: 100%;
+    max-width: 90%;
+    overflow: visible;
+  }
+
+  .lang-button {
+    display: flex;
+    align-items: center;
+    margin-left: 2px;
+
+    .lang {
+      font-weight: 600;
+      font-size: 24px;
+    }
+    svg {
+      width: 48px;
+      height: 48px;
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.map {
+  position: relative;
+  grid-column: left-page / right-page;
+  grid-row: base-header / bottom-page;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.buttons-section {
+  position: relative;
+  grid-column: left-margin / right-margin;
+  grid-row: top-buttons / bottom-margin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .views-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 164px;
+    height: 64px;
+    background: #ffffff;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 100px;
+
+    .backward {
+      margin-left: 8px;
+      width: 48px;
+      height: 48px;
+      transform: rotate(180deg);
+    }
+
+    .forward {
+      margin-right: 8px;
+      width: 48px;
+      height: 48px;
+    }
+
+    .number {
+      font-weight: 600;
+      font-size: 28px;
+    }
+  }
+
+  .reconstruction-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    background: #ffffff;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.12);
+    border-radius: 100px;
+
+    height: 64px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      margin-left: 26px;
+      margin-right: 14px;
+      font-weight: 600;
+      font-size: 24px;
+    }
+
+    svg {
+      width: 48px;
+      height: 48px;
+      // margin-right: 7px;
+    }
+  }
+}
+
+.background {
+  z-index: 9;
+  position: absolute;
+  grid-column: left-page / right-page;
+  grid-row: base-header / bottom-page;
+  width: 100%;
+  height: 100%;
+  background: rgba(177, 177, 177, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.view-modal {
+  position: relative;
+  z-index: 10;
+  grid-column: left-margin / right-margin;
+  grid-row: base-header / top-buttons;
+  margin-top: 40px;
+  height: 70%;
+  background: #ffffff;
+  display: grid;
+  grid-template-columns: [left-modal] 84px [left-modal-margin] 1fr [right-modal-margin] 84px [right-modal];
+  grid-template-rows: [top-modal] 85px [base-header] 70px [base-title] minmax(auto, 300px) [base-text] 140px [base-footer] 75px [bottom-modal];
+
+  .header {
+    grid-column: left-modal / right-modal;
+    grid-row: top-modal / base-header;
+    
+    .close-button {
+      position: absolute;
+      right: 0;
+      display: flex;
+      align-items: center;
+      
+      span {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      
+    }
+  }
+  .title {
+    grid-column: left-modal-margin / right-modal-margin;
+    grid-row: base-header / base-title;
+    overflow: visible;
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .text {
+    grid-column: left-modal-margin / right-modal-margin;
+    grid-row: base-title / base-text;
+    font-size: 22px;
+    line-height: 27px;
+    overflow-y: scroll;
+    padding-right: 30px;
+
+    // .inner {
+    //   margin-right: 30px;
+    // }
+  }
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+
+  ::-webkit-scrollbar:vertical {
+    width: 5px;
+  }
+
+  // ::-webkit-scrollbar:horizontal {
+  //   height: 12px;
+  // }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    // border: 2px solid #ffffff;
+  }
+
+  // ::-webkit-scrollbar-track {
+  //   border-radius: 10px;
+  //   background-color: #ffffff;
+  // }
+
+  .footer {
+    background: #fff;
+    grid-column: left-modal-margin / right-modal-margin;
+    grid-row: base-text / base-footer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+
+    .go-button {
+      box-sizing: border-box;
+      width: 164px;
+      height: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 5px solid;
+      border-radius: 100px;
+      font-size: 36px;
+      font-weight: 600;
+      padding-left: 18px;
+
+      svg {
+        width: 62px;
+        height: 62px;
+      }
+    }
+
+    .gps-label {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+
+  svg {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.language-modal {
+  position: relative;
+  background: #fff;
+  border-radius: 5px;
+
+  .close-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+  }
+  
+  .choices {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 54px;
+    justify-content: space-between;
+    margin: 124px 145px 95px 145px;
+  }
+}
+
+.time-bar {
+  grid-column: left-margin / right-margin;
+  grid-row: top-buttons / bottom-margin;
+  z-index: 10;
+  
+
+  height: 20px;
+  width: 100%;
+  margin: auto;
+
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+
+  .time {
+    background: #7E7E7E;
+    height: 100%;
+    width: calc(var(--dx) * 1%);
+  }
+
+}
+
+.no-monument-selection {
+  z-index: 100;
+  position: absolute;
+  background: #fff ;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .title {
+    font-size: 42px;
+    font-weight: 1000;
+    line-height: 1.2em;
+    transform: translateY(-100px);
+  }
+  
+  .help {
+    font-size: 24px;
+    line-height: 1.2em;
+  }
+  
+  .link {
+    color: rgb(0, 119, 255);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .monuments {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+
+    .monument {
+      font-size: 42px;
+      line-height: 1.2em;
+      padding: 10px;
+      margin: 10px;
+      text-transform: uppercase;
+      color: var(--color);
+      cursor: pointer;
+    }
+  }
+
+}
+
+.messages {
+  visibility: hidden;
+  z-index: 10;
+  position: absolute;
+  top: -500px;
+
+  @include desktop{
+    visibility: visible ;
+    width: calc((100vw - 800px) / 2 - 24px - 5vw);
+    height: 90%;
+    padding: 50px;
+    top: 0;
+    display: flex;
+  
+    .container {
+      user-select: text;
+      position: relative;
+      background: rgba(255, 255, 255, 0.096);
+      height: 50%;
+      width: 100%;
+      padding: 10px;
+      overflow: hidden;
+      border-radius: 5px;
+
+
+      .scroll {
+        height: 100%;
+        overflow-y: scroll;
+
+      }
+
+      ::-webkit-scrollbar {
+        -webkit-appearance: none;
+      }
+    
+      ::-webkit-scrollbar:vertical {
+        width: 5px;
+      }
+    
+      // ::-webkit-scrollbar:horizontal {
+      //   height: 12px;
+      // }
+    
+      ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        // border: 2px solid #ffffff;
+      }
+    }
+  }
+}

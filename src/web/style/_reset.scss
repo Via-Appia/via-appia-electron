@@ -3,13 +3,13 @@
 html, body {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  font-family: "Roboto-Regular";
+  font-family: "Neue-Haas-Grotesk-Text-Pro";
   font-size: 14px;
   line-height: 16px;
-  letter-spacing: -0.02em;
   margin: 0;
   overflow-x: hidden; 
-  background: #fff;
+  background: rgb(49, 49, 49);
+  touch-action: none;
 
   @include desktop {
     font-size: 16px;

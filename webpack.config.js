@@ -135,7 +135,7 @@ const webConfig = (settings) => ({
     }),
   ],
   devServer: {
-    static: `./build/${settings.build}`,
+    static: `./build/${settings.buildName}`,
     historyApiFallback: true,
     host: require('os').hostname().toLowerCase(),
     port: settings.devPort,

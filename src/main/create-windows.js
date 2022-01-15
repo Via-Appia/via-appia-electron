@@ -30,15 +30,15 @@ function createWindow (windowSetting, screenSettings) {
 
   if(!isVisible) return null;
 
-  let displaySettings = displaysConnected.find((display) => display.id === windows[id].screenID)
+  // let displaySettings = displaysConnected.find((display) => display.id === windows[id].screenID)
 
   // Nog wel iest doen als het display nog niet is ingesteld...
 
-  console.log('displaySettings', displaySettings)
+  // console.log('displaySettings', displaySettings)
 
-  let displayShiftX = displaySettings.bounds.x
-  let displayShiftY = displaySettings.bounds.y
-  let fullscreen = true
+  // let displayShiftX = displaySettings.bounds.x
+  // let displayShiftY = displaySettings.bounds.y
+  // let fullscreen = true
   
   win = new BrowserWindow({
     width: 800,
@@ -52,7 +52,7 @@ function createWindow (windowSetting, screenSettings) {
     transparent: false,
     webPreferences: {
       nodeIntegration: true,
-      enableRemoteModule: true
+      enableRemoteModule: true,
     },
   });
   console.log('NODE_ENV', process.env.NODE_ENV)
