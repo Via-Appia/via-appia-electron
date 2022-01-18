@@ -1,12 +1,14 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, screen } from 'electron';
 // import { hostname } from 'os';
 import httpServer from './http-server'
 import socketServer from './socket-server'
 import createWindows from './create-windows'
+
+import useMainContext from './useMainContext'
 // import settings from './setting.json'
 
 httpServer()
-socketServer()
+const socket = socketServer()
 
 let win = null
 
@@ -51,8 +53,10 @@ let win = null
 //   });
 // }
 
-app.on('ready', () => {
-  createWindows(win, app);
+app.on('ready', async () => {
+  const windows = await createWindows(win, app);
+
+  listenToScreenEvents()
   // createWindow();
 });
 
@@ -62,10 +66,14 @@ app.on('window-all-closed', () => {
   }
 });
 
+
+// dit lijt nog niets te doen!
 app.on('activate', () => {
   if (win === null) {
-    createWindows(win, app);
+    const windows = createWindows(win, app);
+    console.log('WINDOWS', windows)
     // createWindow();
+    listenToScreenEvents()
   }
 });
 
@@ -79,3 +87,25 @@ ipcMain.on('APP_TITLE_REQUEST', (event, arg) => {
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() });
 });
+
+
+// Screen Events
+function listenToScreenEvents() {
+  screen.on('display-added', (event, newDisplay) => {
+    const screenManager = socket.clients['screenmanager']
+    screenManager && sendMessage(screenManager, {type: 'DISPLAY_ADDED', payload: newDisplay})
+  })
+  
+  screen.on('display-removed', (event, oldDisplay) => {
+    const screenManager = socket.clients['screenmanager']
+    screenManager && sendMessage(screenManager, {type: 'DISPLAY_REMOVED', payload: oldDisplay})
+  })
+
+
+}
+
+function sendMessage(target, message) {
+  target.send(JSON.stringify(message))
+}
+
+

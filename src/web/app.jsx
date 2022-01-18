@@ -19,18 +19,21 @@ import { appService } from './statemachine/services';
 import useContext from './hooks/useContext';
 import monuments from './data/monuments';
 
+import ScreenManager from './screenmanager';
+
 const App = () => {
   const [property, setProperty] = useState('pop_est');
   const [current, send] = useActor(appService);
 
   const handleMonumentSelection = useCallback((monument) => {
-    send({ type: 'SELECT', payload: monument });
+    monument ? send({ type: 'SELECT', payload: monument }) : send({type: 'START_SCREENMANAGER'})
   }, []);
 
   useEffect(() => {
     const slug = window.location.href.split('#')[1];
     const monument = monuments.find((monument) => monument.alias === slug);
     monument && send({ type: 'SELECT', payload: monument });
+    slug === 'screenmanager' && send({type: 'START_SCREENMANAGER'})
   }, []);
 
   const handleLink = useCallback((input) => {
@@ -62,8 +65,12 @@ const App = () => {
             <div className="title">REVISITED: Via Appia, tablet-app</div>
             <div className="help">Maak een keuze:</div>
             <div className="comment">
-              of vul de huidige url aan met: {monuments.map(({id, alias}) => <span key={id}><span className='link' onClick={() => handleLink(alias)}>{`/#${alias}`}</span>, </span>)} refresh dan de pagina (toets: F5)
+              of vul de huidige url aan met:
+              {monuments.map(({id, alias}) => <span key={id}><span className='link' onClick={() => handleLink(alias)}>{`/#${alias}`}</span>, </span>)} 
+              <span className='link' onClick={() => handleLink('screenmanager')}>/#screenmanager </span>
+              refresh dan de pagina (toets: F5)
             </div>
+            <div onClick={() => handleMonumentSelection()} className='screenmanager-button'>Screen Manager</div>
             <div className="monuments">
               {monuments.map((monument) => (
                 <div key={monument.id} className="monument" style={{ '--color': monument.color }} onClick={() => handleMonumentSelection(monument)}>
@@ -73,6 +80,7 @@ const App = () => {
             </div>
           </div>
         )}
+        {current.matches('start_screenmanager') && <ScreenManager />}
         <Header />
         <GeoChart {...{ data, property }} />
         <div className="buttons-section">

@@ -37,6 +37,7 @@ const commonConfig = (settings) => ({
   devtool: 'source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.scss'],
+    fallback: { "os": require.resolve("os-browserify/browser") }
   },
   module: {
     rules: [

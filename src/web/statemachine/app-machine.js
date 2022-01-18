@@ -21,6 +21,9 @@ const appMachine = createMachine({
         SELECT: {
           target: 'startup',
           actions: assign({slug: (context, event) => event.payload.alias})
+        },
+        START_SCREENMANAGER: {
+          target: 'start_screenmanager'
         }
       }
     },
@@ -94,6 +97,7 @@ const appMachine = createMachine({
       },
     },
     reconstruction: {},
+    start_screenmanager: {}
   },
 });
 

@@ -1,4 +1,5 @@
 import WebSocket from 'ws';
+import useMainContext from './useMainContext'
 
 function socketSetup() {
   const port = 8001
@@ -7,13 +8,24 @@ function socketSetup() {
 
   socketServer.on('connection', (w, req) => {
 
+
+
+    
+    
     w.on('message', (input) => {
-      console.log('INPUT', input)
+      // console.log('connected', Object.keys(clients))
+      // console.log('clients', socketServer.clients)
+      // console.log('INPUT', input)
       // eerst het binnenhalen van de ID van het window, met dat id word de lijst samengesteld van clients.
       const {type, payload} = JSON.parse(input)
       let message
       let clientToSendTo
       let clientToConfirm
+
+      const { connectedDisplays, setConnectedDisplays, screenConfig } = useMainContext.getState()
+
+      console.log('received:', input)
+
       switch (type) {
         case "CONNECT":
           clients[payload.id] = w
@@ -53,7 +65,23 @@ function socketSetup() {
           const sendTo = `touch${id.slice(6)}`
           clientToSendTo = clients[sendTo]
           clientToSendTo.send(JSON.stringify(message))
+          break;
+        case "START-VIEW":
+          // console.log('clients:', clients)
+          break;
+        case "TEST": 
+          console.log(input)
+          console.log(clients['screenmanager'])
+          break;
 
+        case "GET_DISPLAY_DATA":
+          clients['screenmanager'].send(JSON.stringify({type: 'RESPONSE_DISPLAY_DATA', payload: connectedDisplays}));
+          break;
+
+        case "GET_SCREEN_CONFIG":
+          console.log(screenConfig)
+          clients['screenmanager'].send(JSON.stringify({type: 'RESPONSE_SCREEN_CONFIG', payload: screenConfig}))
+          break;
         default:
           break;
       }
@@ -63,13 +91,13 @@ function socketSetup() {
 
       })
     w.on('close', () => {
-      console.log('Closed')
+      console.log('Closed')      
     })
     // bij de begin van connenctie zou je iets kunnen verzenden, alleen de clients zijn wel ingeteld op alleen ontvangen van JSON
     // w.send("Dit is van de Main Process")
   })
 
-    return socketServer
+    return {socketServer, clients}
 }
 
 export default socketSetup

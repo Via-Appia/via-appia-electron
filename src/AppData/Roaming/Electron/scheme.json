@@ -1,0 +1,15 @@
+{
+  "window01": {
+    "screen": {
+      "screenID": 2528732444,
+      "screenName": null,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1440
+      }
+    },
+    "url": "http://localhost:3000/story01"
+  }
+}

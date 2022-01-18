@@ -1,11 +1,12 @@
 import React from 'react';
-import { remote, ipcRenderer } from 'electron';
+import { remote, ipcRenderer, screen, Rectangle } from 'electron';
 import style from './app-bar.module.scss';
 
 import Logo from './logo.svg';
 import Close from './close.svg';
 import Resize from './resize.svg';
 import Minimize from './minimize.svg';
+import { useEffect } from 'react/cjs/react.development';
 
 
 const AppBar = () => {
@@ -28,6 +29,10 @@ const AppBar = () => {
   const handleClose = () => {
     remote.app.quit();
   };
+
+  useEffect(() => {
+
+  }, [])
 
   return (
     <div className={style['app-bar']}>
