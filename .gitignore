@@ -8,3 +8,5 @@ build/*
 !build/.gitkeep 
 !build/assets
 !build/*.html
+!build/web
+# !build/web/svg/*
