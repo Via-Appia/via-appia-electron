@@ -1,4 +1,4 @@
-import React, {useMemo, useCallback, useState} from 'react';
+import React, {useMemo, useCallback, useState, useRef} from 'react';
 import { useEffect } from 'react/cjs/react.development';
 import AppBar from './components/app-bar';
 import Socket from './hooks/websocket';
@@ -18,6 +18,8 @@ const App = () => {
     setURL(monument)
   },[])
 
+  
+
   return (
     <>
       <AppBar />
@@ -26,7 +28,7 @@ const App = () => {
           <button onClick={() => handleSend({type: 'TEST', payload: "Hello World!"})}>Send message</button>
         </div>
         <div className="container">
-          {URL && <iframe src={URL} scrolling="no"></iframe>}
+          {URL && <iframe src={URL} scrolling="no" ></iframe>}
         </div>
       </div>
     </>

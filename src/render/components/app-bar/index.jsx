@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { remote, ipcRenderer, screen, Rectangle } from 'electron';
 import style from './app-bar.module.scss';
 
@@ -6,11 +6,14 @@ import Logo from './logo.svg';
 import Close from './close.svg';
 import Resize from './resize.svg';
 import Minimize from './minimize.svg';
-import { useEffect } from 'react/cjs/react.development';
+import { useCallback, useEffect } from 'react/cjs/react.development';
 
-
+let vis = false
 const AppBar = () => {
   const { name, version } = ipcRenderer.sendSync('APP_TITLE_REQUEST');
+  // const barVisibility = false
+  const [visible, setVisible] = useState(false)
+
   const color = '#222';
 
   const handleMinimize = () => {
@@ -30,25 +33,43 @@ const AppBar = () => {
     remote.app.quit();
   };
 
-  useEffect(() => {
+  const handleKeyPress = (event) => {
+    if(event.key === 'h') {
+      if(vis) {
+        vis = false
+        setVisible(false)
+      } else {
+        vis = true
+        setVisible(true)
+      }
+    }
+  }
 
+  useEffect(() => {
+    document.addEventListener("keydown",  handleKeyPress)
   }, [])
 
+
   return (
-    <div className={style['app-bar']}>
-      <Logo className={style['logo']} />
-      <div className={style['title']}>
-        {name} - {version}
+    <div className={style['container']}>
+      <div className={style['click']} style={{top: (visible ? "30px" : "0px") }}>
+        <div className={style['text']}>Click here and press h to show/hide app-bar</div>
       </div>
-      <div className={style['controll']}>
-        <div onClick={handleMinimize}>
-          <Minimize className={style['minimize']} />
+      <div className={style['app-bar']} style={{top: (visible ? "0" : "-30px") }}>
+        <Logo className={style['logo']} />
+        <div className={style['title']}>
+          {name} - {version}
         </div>
-        <div onClick={handleRestorDown}>
-          <Resize className={style['resize']} />
-        </div>
-        <div onClick={handleClose}>
-          <Close className={style['close']} />
+        <div className={style['controll']}>
+          <div onClick={handleMinimize}>
+            <Minimize className={style['minimize']} />
+          </div>
+          <div onClick={handleRestorDown}>
+            <Resize className={style['resize']} />
+          </div>
+          <div onClick={handleClose}>
+            <Close className={style['close']} />
+          </div>
         </div>
       </div>
     </div>
