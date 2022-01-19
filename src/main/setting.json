@@ -2,8 +2,10 @@
   "barvisibility": false,
   "windows": {
     "window01": {
-      "screen": null,
-      "url": "http://localhost:3000/story01",
+      "screen": {
+        "id": 2528732444
+      },
+      "html": "story01.html",
       "hasDevtools": false,
       "isVisible": true
     }

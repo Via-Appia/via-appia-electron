@@ -16,7 +16,7 @@ async function createWindows (win, app) {
   const displays = screen.getAllDisplays()
   setConnectedDisplays(displays)
 
-  // console.log(displays)
+  console.log(displays)
   
   // example for a subscription to the store....
   // const unsub1 = useMainContext.subscribe((store) => store.connectedDisplays, (newVal,oldVal) => {
@@ -89,6 +89,7 @@ function createWindow (config) {
   // ####  Production Mode: dan wordt de index.html van het file-system geladen in het window
   if (process.env.NODE_ENV === 'production') {
     win.loadURL(`file://${__dirname}/${html}`);
+    // win.loadURL(`file://${__dirname}/${html}`);
     
     // ####  Development Mode: Dan moet er een Webpack devServer meedraaien, en wordt de index.html van die locatie afgehaald
     // #### Als de Express server in deze app dezelfde port gebruikt, dan conflicteerd dat!
@@ -97,6 +98,7 @@ function createWindow (config) {
     // const PORT = 8080;
     // win.loadURL(`http://${HOST}:${PORT}/`);
     win.loadURL(`file://${__dirname}/${html}`);
+    // win.loadURL(`file://${__dirname}/index.html`);
     devtools = new BrowserWindow({
       x: 0,
       y: 0
