@@ -16,7 +16,7 @@ async function createWindows (win, app) {
   const displays = screen.getAllDisplays()
   setConnectedDisplays(displays)
 
-  console.log(displays)
+  // console.log(displays)
   
   // example for a subscription to the store....
   // const unsub1 = useMainContext.subscribe((store) => store.connectedDisplays, (newVal,oldVal) => {
@@ -52,12 +52,21 @@ async function createWindows (win, app) {
 
 
 function createWindow (config) {
-  const {html, hasDevtools, screen, isVisible} = config;
+  const {html, hasDevtools, isVisible} = config; //config.screen ... maar er bestaat al een screen in electron...
   // const {windows, displaysConnected}  = screenSettings;
   let win = null;
   let devtools = null;
 
   if(!isVisible) return null;
+
+  // console.log(screen.id)
+  const displays = screen.getAllDisplays()
+  const display = displays.find((display) => display.id === config.screen.id)
+  if(!display) return null; 
+
+  const {bounds: {x, y, width, height}} = display
+  console.log('display', x, y, width, height)
+  // const diplay = displays[]
 
   // let displaySettings = displaysConnected.find((display) => display.id === windows[id].screenID)
 
@@ -70,10 +79,13 @@ function createWindow (config) {
   // let fullscreen = true
   
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    minWidth: 400,
-    minHeight: 300,
+    x,
+    y,
+    width,
+    height,
+    fullscreen: true,
+    // minWidth: 400,
+    // minHeight: 300,
     backgroundColor: '#ffffff',
     icon: `${__dirname}/assets/productbuilder-magenta.ico`,
     show: false, // Dit zet de Browserwindow uit, gevolgd door later een event dat zodra de render ready is op true wordt gezet; Dit voorkomt het showen van een leeg window.

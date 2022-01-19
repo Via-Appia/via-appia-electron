@@ -24,9 +24,9 @@ const App = () => {
     <>
       <AppBar />
       <div className="app">
-        <div className="message-box">
+        {/* <div className="message-box">
           <button onClick={() => handleSend({type: 'TEST', payload: "Hello World!"})}>Send message</button>
-        </div>
+        </div> */}
         <div className="container">
           {URL && <iframe src={URL} scrolling="no" ></iframe>}
         </div>
